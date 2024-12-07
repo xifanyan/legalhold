@@ -7,12 +7,12 @@ import (
 
 	"github.com/microsoftgraph/msgraph-sdk-go/models"
 	"github.com/microsoftgraph/msgraph-sdk-go/users"
-	"github.com/xifanyan/lhn/client"
+	"github.com/xifanyan/legalhold"
 )
 
 // Your auth provider implementation
 
-func paginateUsers(ctx context.Context, gc *client.MsGraphClient, userChan chan<- models.Userable) {
+func paginateUsers(ctx context.Context, gc *legalhold.MsGraphClient, userChan chan<- models.Userable) {
 	defer close(userChan) // Ensure the channel is closed when done
 
 	// Get all users with pagination
@@ -68,7 +68,7 @@ func sendUsersToChannel(users []models.Userable, userChan chan<- models.Userable
 
 func main() {
 
-	gc, err := client.NewMsGraphClientBuilder().
+	gc, err := legalhold.NewMsGraphClientBuilder().
 		WithCertFile("C:/Users/pyan/lhn_msgraph_go.pfx").
 		WithCertSecret("lhn_msgraph_go").
 		WithTenantID("de62bccf-1ea0-44d1-a86e-e4918e21bbdc").
